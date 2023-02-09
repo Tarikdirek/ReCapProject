@@ -4,59 +4,28 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, ProjectDbContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarDetailDto> GetCarDetails()
         {
             using (ProjectDbContext context = new ProjectDbContext())
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
+                var result = from d in context.Cars
+                             join b in context.Brands
+                             on d.CarId equals b.BrandId
+                             join c in context.Colors
+                             on d.ColorId equals c.ColorId
 
-        public void Update(Car entity)
-        {
-            using (ProjectDbContext context = new ProjectDbContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (ProjectDbContext context = new ProjectDbContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>>? filter = null)
-        {
-            using (ProjectDbContext context = new ProjectDbContext())
-            {
-                return filter == null 
-                    ? context.Set<Car>().ToList()
-                    :context.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (ProjectDbContext context = new ProjectDbContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
+                             select new CarDetailDto { Descriptoin = d.Description, BrandName = b.BrandName,ColorName=c.ColorName };
+                return result.ToList();
             }
         }
     }
