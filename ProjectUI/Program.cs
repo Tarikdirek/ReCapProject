@@ -9,12 +9,34 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //CarDetailsTest();
-        //CarAddTest();
-        //BrandGetAllTest();
-        //ColorGetAllTest();
+        RentalAddTest();
 
-        ColorUpdateTest();
+    }
+
+    private static void RentalAddTest()
+    {
+        RentalManager rentalManager = new RentalManager(new EfRentalDal());
+        Console.WriteLine(rentalManager.Add(new Rental
+        {
+            Id = 2,
+            CustomerId = 1,
+            RentDate = new DateTime(2023, 02, 14)
+            ,
+            ReturnDate = new DateTime(0001, 01, 1),
+            CarId = 1
+        }).Message);
+    }
+
+    private static void CustomerAddTest()
+    {
+        CustomerManager customer1 = new CustomerManager(new EfCustomerDal());
+        Console.WriteLine(customer1.Add(new Customer { CompanyName = "WOMENPOWER CORP", UserId = 3 }).Message);
+    }
+
+    private static void UserAddTest()
+    {
+        UserManager user1 = new UserManager(new EfUserDal());
+        Console.WriteLine(user1.Add(new User { FirstName = "Hazal", LastName = "Baliç", Email = "hazalbalic@gmail.com", Password = "298547" }).Message);
     }
 
     private static void ColorUpdateTest()
