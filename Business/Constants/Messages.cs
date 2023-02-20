@@ -32,6 +32,6 @@ namespace Business.Constants
         public static string CustomerAdded = "Customer added";
         public static string CustomerDeleted = "Customer deleted";
         public static string CustomerUpdated = "Customer updated";
-        internal static string RentalNotAdded = "Rental not added";
+        public static string RentalNotAdded = "Rental not added";
     }
 }
