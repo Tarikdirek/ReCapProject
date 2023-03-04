@@ -74,10 +74,10 @@ namespace Business.Concrete
             var result = _carImageDal.GetAll(c =>c.CarId == carId).Count();
             if (result<=5) 
             {
-                return new ErrorResult(Messages.CarImageLimitExpired);
+                return new SuccessResult();
             }
-            return new SuccessResult();
-        
+            return new ErrorResult(Messages.CarImageLimitExpired);
+
         }
         private IDataResult<List<CarImage>> GetDefaultImage(int carId)
         {
