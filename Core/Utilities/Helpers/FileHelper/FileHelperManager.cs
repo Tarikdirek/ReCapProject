@@ -30,7 +30,7 @@ namespace Core.Utilities.Helpers.FileHelper
 
         public string Upload(IFormFile file, string root)
         {
-            string filePath = "";
+            
 
             if (file.Length>0)
             {
@@ -40,7 +40,7 @@ namespace Core.Utilities.Helpers.FileHelper
                 }
                 string extension=Path.GetExtension(root);
                 string guid = GuidHelper.CreateGuid();
-                filePath = guid + extension;
+                string filePath =guid + extension;
 
                 using (FileStream fileStream = File.Create(root+filePath))
                 {
