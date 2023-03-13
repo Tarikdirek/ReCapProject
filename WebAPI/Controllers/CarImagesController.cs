@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return Ok(result);
 
         }
         [HttpGet("getbyimageid")]

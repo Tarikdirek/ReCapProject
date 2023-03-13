@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,13 @@ namespace Business.Constants
         public static string CarImageDeleted ="Car image deleted";
         public static string CarImagesListed = "Car image listed";
         public static string CarImageUpdated = "Car image updated";
-        internal static string CarImageLimitExpired;
+        public static string CarImageLimitExpired = "Resim yükleme limiti aşıldı";
+        public static string AccessTokenCreated = "Erişim tokeni oluşturuldu";
+        public static string UserAlreadyExist = "Kullanıcı adı kullanılmakta";
+        public static string UserRegistered="Kullanıcı kaydedildi ";
+        public static string UserNotFound= "Kullanıcı bulunmadı";
+        public static string PasswordError = "Şifre hatalı";
+        public static string SuccessfulLogin =" Başarılı giriş";
+        public static string? AuthorizationDenied="Yetkiniz yok";
     }
 }

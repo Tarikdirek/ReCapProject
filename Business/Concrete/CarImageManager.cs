@@ -47,7 +47,8 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(),Messages.CarImagesListed);
         }
-        public IDataResult<List<CarImage>> GetByCarId(int carId) 
+
+        public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
             var result = BusinessRules.Run(CheckCarImage(carId));
             if (result != null)
@@ -55,7 +56,6 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<CarImage>>(GetDefaultImage(carId).Data);
             }
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
-        
         }
 
         public IDataResult<CarImage> GetByImageId(int carImageId)

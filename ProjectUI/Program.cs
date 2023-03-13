@@ -2,8 +2,10 @@
 using Core.Utilities.Results;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.VisualBasic;
+using Core.Utilities.Security.Hashing;
 
 internal class Program
 {
@@ -11,6 +13,7 @@ internal class Program
     {
         RentalAddTest();
 
+        
     }
 
     private static void RentalAddTest()
@@ -33,11 +36,11 @@ internal class Program
         Console.WriteLine(customer1.Add(new Customer { CompanyName = "WOMENPOWER CORP", UserId = 3 }).Message);
     }
 
-    private static void UserAddTest()
-    {
-        UserManager user1 = new UserManager(new EfUserDal());
-        Console.WriteLine(user1.Add(new User { FirstName = "Hazal", LastName = "Baliç", Email = "hazalbalic@gmail.com", Password = "298547" }).Message);
-    }
+    //private static void UserAddTest()
+    //{
+    //    UserManager user1 = new UserManager(new EfUserDal());
+    //    Console.WriteLine(user1.Add(new User { FirstName = "Hazal", LastName = "Baliç", Email = "hazalbalic@gmail.com", Password = "298547" }).Message);
+    //}
 
     private static void ColorUpdateTest()
     {
