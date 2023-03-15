@@ -11,9 +11,15 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        RentalAddTest();
+        //RentalAddTest();
 
+        CarManager carManager = new CarManager(new EfCarDal());
         
+        var result = carManager.AddTransactionalTest(new Car
+            { BrandId = 3002, ColorId = 1, DailyPrice = 400, ModelYear = 2000, Description = "Toros" });
+
+        Console.WriteLine(result.Success);
+
     }
 
     private static void RentalAddTest()
