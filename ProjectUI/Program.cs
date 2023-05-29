@@ -91,7 +91,7 @@ internal class Program
         {
             foreach (var car in result.Data)
             {
-                Console.WriteLine(car.Descriptoin + "---" + car.BrandName + "----" + car.ColorName);
+                Console.WriteLine(car.Description + "---" + car.BrandName + "----" + car.ColorName);
             }
 
         }

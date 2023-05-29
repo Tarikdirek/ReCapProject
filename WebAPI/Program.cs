@@ -11,7 +11,9 @@ using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddSingleton<ICustomerDal,EfCustomerDal>();
 //builder.Services.AddSingleton<IRentalDal,EfRentalDal>();
 //builder.Services.AddSingleton<IUserDal,EfUserDal>();
+builder.Services.AddCors();
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
@@ -67,7 +70,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
+
+app.UseDefaultFiles();
+
+app.UseStaticFiles();
+
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://localhost:7205").AllowAnyHeader());
+
+app.UseRouting();
 
 app.UseAuthentication();
 
