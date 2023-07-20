@@ -23,9 +23,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getrentaldetails")]
-        public IActionResult GetRentalDetails()
+        public IActionResult GetRentalDetails(int id)
         {
-            var result = _rentalService.GetRentalDetails();
+            var result = _rentalService.GetRentalDetails(id);
             return result.Success ? Ok(result): BadRequest(result);
 
         }
@@ -52,6 +52,13 @@ namespace WebAPI.Controllers
         {
             var result = _rentalService.Update(rental);
             return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("iscaravailable")]
+        public IActionResult IsCarAvailable(int carId)
+        {
+            var result = _rentalService.IsCarAvailable(carId);
+            return result.Success ? Ok(result) :Ok(result);
         }
     }
 }

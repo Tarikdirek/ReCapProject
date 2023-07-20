@@ -10,5 +10,15 @@ namespace Business.ValidationRules.FluentValidation
 {
     public class ColorValidator : AbstractValidator<Color>
     {
+        public ColorValidator() 
+        {
+            RuleFor(c=>c.ColorName).NotEmpty();
+            RuleFor(c => c.ColorName).Must(StartsWithA).WithMessage("Color must start with A");
+        }
+
+        private bool StartsWithA (string arg)
+        {
+            return arg.StartsWith("A");
+        }
     }
 }

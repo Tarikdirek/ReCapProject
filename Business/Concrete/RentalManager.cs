@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities.DTOs;
+using Core.Utilities.Business;
 
 namespace Business.Concrete
 {
@@ -23,11 +24,7 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            if (!(rental.ReturnDate == null))
-            {
-                return new ErrorResult(Messages.RentalNotAdded);
-            }
-            else
+
             {
                 _rental.Add(rental);
                 return new SuccessResult(Messages.RentalAdded);
@@ -52,15 +49,36 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rental.Get(r => r.Id == rentalId));
         }
 
-        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails(int id)
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rental.GetRentalDetails());
+            
+            return new SuccessDataResult<List<RentalDetailDto>>(_rental.GetRentalDetails(r => r.Id == id));
         }
 
         public IResult Update(Rental rental)
         {
             _rental.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
+        }
+
+        public IResult IsCarAvailable(int carId)
+        {
+            IResult result = BusinessRules.Run(CheckIfCarAvailableForRent(carId));
+            if (result!= null)
+            {
+                return new ErrorResult("Car is not available for rent");
+            }
+            return new SuccessResult("Car is available for rent");
+        }
+
+        public IResult CheckIfCarAvailableForRent(int rentalId)
+        {
+            var result = _rental.GetRentalDetails(r => r.Id == rentalId).Any();
+            if (result == true)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();            
         }
     }
 }

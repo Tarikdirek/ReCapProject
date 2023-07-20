@@ -70,7 +70,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.ConfigureCustomExceptionMiddleware();
 
 app.UseHttpsRedirection();
 
