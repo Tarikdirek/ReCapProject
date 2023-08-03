@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
         public IActionResult Register(UserForRegisterDto userForRegisterDto)
         {
             var userExist = _authService.UserExist(userForRegisterDto.Email);
-            
+
             if (!userExist.Success)
             {
                 return BadRequest(userExist.Message);
@@ -49,9 +49,16 @@ namespace WebAPI.Controllers
             if (result.Success)
             {
 
-                return Ok(result.Data);
+                return Ok(result);
             }
             return BadRequest(result.Message);
+        }
+
+        [HttpPost("passwordupdate")]
+        public IActionResult PasswordUpdate(UserForPasswordUpdateDto userForPasswordUpdateDto)
+        {
+            var result = _authService.UpdateUserPassword(userForPasswordUpdateDto, userForPasswordUpdateDto.NewPassword);
+            if (result.Success) { return Ok(result); } return BadRequest(result.Message);
         }
     }
 }

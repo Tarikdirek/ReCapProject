@@ -14,13 +14,13 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public List<OperationClaim> GetClaims (User user) 
         {
-            using (var contex = new ProjectDbContext())
+            using (var context = new ProjectDbContext())
             {
-                var result = from operationClaims in contex.OperationClaims
-                             join userOperationClaims in contex.userOperationClaims
-                             on operationClaims.Id equals userOperationClaims.Id
-                             where userOperationClaims.UserId == user.Id
-                             select new OperationClaim {Id = operationClaims.Id,Name = operationClaims.Name };
+                var result = from operationClaim in context.OperationClaims
+                             join userOperationClaim in context.userOperationClaims
+                             on operationClaim.Id equals userOperationClaim.OperationClaimId
+                             where userOperationClaim.UserId == user.Id
+                             select new OperationClaim {Id = operationClaim.Id,Name = operationClaim.Name };
                 return result.ToList();
             }
         

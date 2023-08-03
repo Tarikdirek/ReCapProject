@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTOs;
+using DataAccess.Concrete.EntityFramework;
 
 namespace Business.Concrete
 {
@@ -40,7 +42,7 @@ namespace Business.Concrete
         public User GetByEmail(string email)
         {
             var result = _user.Get(u => u.Email == email);
-            return result;
+            return result ;
         }
 
         public IDataResult<User> GetById(int userId)
@@ -54,9 +56,30 @@ namespace Business.Concrete
             return result;
         }
 
+        //public User GetUser(string email, string updatedEmail)
+        //{
+        //    var result = _user.Get(u => u.Email == email);
+        //    result.Email = updatedEmail;
+           
+        //    _user.Update(result);
+            
+        //    return  new User { Email=result.Email,FirstName=result.FirstName,LastName=result.LastName,PasswordHash=result.PasswordHash
+        //    ,PasswordSalt=result.PasswordSalt,Status=result.Status};
+
+        //}
+
         public IResult Update(User user)
         {
             _user.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
+        public IResult UpdateUserNames(UserForUpdateDto user)
+        {
+            var updatedUser = _user.Get(u => u.Id == user.Id);
+            updatedUser.FirstName = user.FirstName;
+            updatedUser.LastName = user.LastName;
+            _user.Update(updatedUser);
             return new SuccessResult(Messages.UserUpdated);
         }
     }

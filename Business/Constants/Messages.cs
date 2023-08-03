@@ -46,5 +46,7 @@ namespace Business.Constants
         public static string PasswordError = "Şifre hatalı";
         public static string SuccessfulLogin =" Başarılı giriş";
         public static string? AuthorizationDenied="Yetkiniz yok";
+        public static string RepeatPasswordError ="Tekrar edilen şifre yanlış!";
+        public static string PasswordChanged ="Şifre değiştirildi.";
     }
 }
